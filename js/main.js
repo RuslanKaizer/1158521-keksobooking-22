@@ -1,7 +1,7 @@
 'use strict'
 const getRandomNumber = function (min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
+  max = Math.ceil(max);
+  min = Math.floor(min);
   const isValidCondition =  min < 0 || max < 0;
   return isValidCondition ? alert('Значения не могут быть отрицательны') : Math.floor(Math.random() * (max - min + 1)) + min;
 };
