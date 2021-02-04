@@ -21,7 +21,7 @@ const getRandomFloatingPoint = function (min, max, roundTo) {
     alert('Значения не могут быть отрицательны');
     return;
   }
-  if (min > max){
+  if (max < min){
     let buffer = max;
     max = min;
     min = buffer;
