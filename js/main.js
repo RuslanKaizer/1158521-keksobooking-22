@@ -44,7 +44,7 @@ const FEATURES = [
   'conditioner',
 ];
 
-const DESCRIPTION = [
+const DESCRIPTIONS = [
   'This room provide clean, comfortable lodging with full amenities, to make sure your stay is relaxing and stress-free.',
   'A brand-new, elegantly designed, luxury apartment building located on a tree-lined street.',
   'The Residences at NewCity is the perfect place to call your new home!',
@@ -139,7 +139,7 @@ const generateOffer = () => {
       checkin: getRandomArrayElement(CHECKIN),
       checkout: getRandomArrayElement(CHECKOUT),
       features: getUniqueArray(FEATURES),
-      description: getRandomArrayElement(DESCRIPTION),
+      description: getRandomArrayElement(DESCRIPTIONS),
       photos: getUniqueArray(PHOTOS),
     },
     location: {
