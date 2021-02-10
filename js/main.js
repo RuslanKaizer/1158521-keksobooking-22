@@ -12,8 +12,8 @@ const TITLES = [
 ];
 
 const PRICE_NUMBER = {
-  MIN: 0,
-  MAX: 1000000,
+  MIN: 1,
+  MAX: 100000,
 };
 
 const TYPES = [
@@ -44,7 +44,7 @@ const FEATURES = [
   'conditioner',
 ];
 
-const DESCRIPTIOINS = [
+const DESCRIPTION = [
   'This room provide clean, comfortable lodging with full amenities, to make sure your stay is relaxing and stress-free.',
   'A brand-new, elegantly designed, luxury apartment building located on a tree-lined street.',
   'The Residences at NewCity is the perfect place to call your new home!',
@@ -58,7 +58,7 @@ const PHOTOS = [
 ];
 
 const NUMBERS = {
-  MIN: 0,
+  MIN: 1,
   MAX: 100,
 };
 
@@ -116,26 +116,22 @@ const getRandomArrayElement = (elements) => {
 const getUniqueArray = (elements) => {
   const length = getRandomNumber(0, elements.length - 1);
   const uniqueArray = [];
-  for (let i = 0; i < length; i++) {
+  for (let i = 0; i <= length; i++) {
     uniqueArray.push(elements[i]);
   }
   return uniqueArray;
 };
 
-const getAuthor = () => ({
-  author: {
-    avatar: 'img/avatars/user0' + getRandomNumber(IMAGE_NUMBER.MIN,IMAGE_NUMBER.MAX) + '.png'
-  },
-});
-
-const getLocation = () => ({
-  x: getRandomFloatingPoint(COORDINATE_X.MIN, COORDINATE_X.MAX, ROUND_FOR_LOCATIONS),
-  y: getRandomFloatingPoint(COORDINATE_Y.MIN, COORDINATE_Y.MAX, ROUND_FOR_LOCATIONS),
-});
-
-const generateOffer = () => ({
+const generateOffer = () => {
+  const xLocation = getRandomFloatingPoint(COORDINATE_X.MIN, COORDINATE_X.MAX, ROUND_FOR_LOCATIONS);
+  const yLocation = getRandomFloatingPoint(COORDINATE_Y.MIN, COORDINATE_Y.MAX, ROUND_FOR_LOCATIONS);
+  return {
+    author: {
+      avatar: 'img/avatars/user0' + getRandomNumber(IMAGE_NUMBER.MIN,IMAGE_NUMBER.MAX) + '.png',
+    },
+    offer: {
       title: getRandomArrayElement(TITLES),
-      address: Object.values(getLocation()),
+      address: xLocation + ', ' + yLocation,
       price: getRandomNumber(PRICE_NUMBER.MIN, PRICE_NUMBER.MAX),
       type: getRandomArrayElement(TYPES),
       rooms: getRandomNumber(NUMBERS.MIN, NUMBERS.MAX),
@@ -143,16 +139,13 @@ const generateOffer = () => ({
       checkin: getRandomArrayElement(CHECKIN),
       checkout: getRandomArrayElement(CHECKOUT),
       features: getUniqueArray(FEATURES),
-      descriptions: getRandomArrayElement(DESCRIPTIOINS),
+      description: getRandomArrayElement(DESCRIPTION),
       photos: getUniqueArray(PHOTOS),
-});
-
-const getTotalObject = () => ({
-  author: getAuthor(),
-  offer: generateOffer(),
-  location: getLocation(),
-});
-
-const createOffer = new Array(ARRAY_LENGTH).fill(null).map(getTotalObject);
-
-createOffer;
+    },
+    location: {
+      x: xLocation,
+      y: yLocation,
+    },
+  }
+};
+const offers = new Array(ARRAY_LENGTH).fill(null).map(generateOffer);
