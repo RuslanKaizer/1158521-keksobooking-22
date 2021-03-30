@@ -12,6 +12,35 @@ const offerCardTemplate = document.querySelector('#card')
 const renderOffers = (offers) => {
   const offersFragment = document.createDocumentFragment();
 
+  const isElementVisible = (element, components) => {
+    if (components.length === 0) {
+      element.setAttribute('style', 'visibility: hidden;');
+      return false;
+    }
+    element.setAttribute('style', 'visibility: visible;');
+    return true;
+  };
+
+  const setAdPhotos = (photosElement, offer) => {
+    if (!isElementVisible(photosElement, offer.photos)) {
+      return;
+    }
+
+    photosElement.innerHTML = offer.photos.map((photo) => {
+      return `<img src="${photo}" class="popup__photo" width="45" height="40" alt="Фотография жилья">`;
+    }).join('');
+  };
+
+  const setAdFeatures = (featuresElement, offer) => {
+    if (!isElementVisible(featuresElement, offer.features)) {
+      return;
+    }
+
+    featuresElement.innerHTML = offer.features.map((feature) => {
+      return `<li class="popup__feature popup__feature--${feature}"></li>`;
+    }).join('');
+  };
+
   offers
     .forEach(({ offer, author }) => {
       const offerElement = offerCardTemplate.cloneNode(true);
@@ -24,26 +53,15 @@ const renderOffers = (offers) => {
       offerElement.querySelector('.popup__text--time').textContent
         =`Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;
 
-      const features = offerElement.querySelectorAll('.popup__feature');
-      features.forEach((featureElement) => {
-        const isExistFeature = offer.features.some((feature) => {
-          return featureElement.classList[1].includes(feature);
-        });
-        if (!isExistFeature) {
-          featureElement.remove();
-        }
-      });
+      const features = offerElement.querySelector('.popup__features');
+      setAdFeatures(features, offer);
 
       offerElement.querySelector('.popup__description').textContent = offer.description;
 
-      offer.photos.forEach((link) => {
-        const imgElement =
-          offerElement.querySelector('.popup__photos').querySelector('img').cloneNode(true);
-        imgElement.src = link;
-        offerElement.querySelector('.popup__photos').appendChild(imgElement);
-      });
-      offerElement.querySelector('.popup__photos').querySelector('img').remove();
-      offerElement.querySelector('.popup__avatar').src = author.avatar;
+      const photosElement = offerElement.querySelector('.popup__photos');
+      setAdPhotos(photosElement, offer);
+
+      offerElement.querySelector('.popup__avatar').setAttribute('src', `${author.avatar}`);
       offersFragment.appendChild(offerElement);
     });
 

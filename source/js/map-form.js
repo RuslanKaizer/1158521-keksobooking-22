@@ -76,4 +76,4 @@ const setFilters = (cb) => {
   });
 };
 
-export { mapFiltersForm, resetMapForm, comparePrice, compareGuests, compareOffers, filterOffers, setFilters };
+export { mapFiltersForm, resetMapForm, comparePrice, compareGuests, compareOffers, filterOffers, setFilters};

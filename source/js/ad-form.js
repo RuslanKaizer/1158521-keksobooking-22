@@ -149,7 +149,6 @@ roomNumberInput.addEventListener('input', (evt) => {
 const setAdFormSubmit = (onSuccess) => {
   adForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
-
     sendData(
       () => onSuccess(),
       () => showSuccessMessage(),

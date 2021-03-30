@@ -1,7 +1,7 @@
 const ALERT_SHOW_TIME = 5000;
 
 const isEscEvent = (evt) => {
-  return evt.key === ('Escape' || 'Esc');
+  return evt.key === 'Escape' || evt.key === 'Esc';
 };
 
 const showAlert = (message) => {

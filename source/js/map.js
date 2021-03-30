@@ -32,10 +32,6 @@ const setAddresValue = ({lat, lng}) => {
   addressInput.value = formatAddressString({lat, lng});
 };
 
-const clearMarkers = () => {
-  markers.clearLayers();
-};
-
 const map = L.map('map-canvas')
   .on('load', () => {
     enableForm(adForm, 'ad-form');
@@ -46,6 +42,8 @@ const map = L.map('map-canvas')
 const markers = new L.LayerGroup().addTo(map);
 
 addressInput.defaultValue = formatAddressString(TOKIO_COORDINATES);
+
+addressInput.setAttribute('readonly', '');
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -108,4 +106,12 @@ const addOffersToMap = (data) => {
     });
 };
 
-export { setDefaultCoordinates, addOffersToMap, clearMarkers, setMainPinMarker };
+const clearMarkers = () => {
+  markers.clearLayers();
+};
+
+const updateMarkers = (data) => {
+  addOffersToMap(data);
+};
+
+export { setDefaultCoordinates, addOffersToMap, clearMarkers, setMainPinMarker, updateMarkers };
